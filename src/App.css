@@ -1,0 +1,232 @@
+/* --- Apple Design System (Global) --- */
+:root {
+  /* Ciemne tło systemowe a'la iOS Dark Mode */
+  --bg-color: #000000;
+  --bg-gradient: radial-gradient(circle at 50% 0%, #2c3e50 0%, #000000 85%);
+  
+  /* Efekt szkła (Glassmorphism) */
+  --glass-bg: rgba(30, 30, 30, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-hover: rgba(255, 255, 255, 0.15);
+  --glass-panel: rgba(20, 20, 20, 0.7);
+  
+  /* Kolory tekstów */
+  --text-main: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.5);
+  --accent-color: #0A84FF;
+  
+  /* Wymiary */
+  --radius-xl: 32px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, sans-serif;
+  background: var(--bg-gradient);
+  background-color: var(--bg-color);
+  background-attachment: fixed;
+  color: var(--text-main);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  max-width: 1200px; /* Zwiększyłem lekko max-width, żeby pomieścić szerszą kolumnę */
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+}
+
+/* --- Nagłówki i Inputy --- */
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  background: linear-gradient(180deg, #fff, rgba(255,255,255,0.6));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+input[type="text"] {
+  width: 100%;
+  max-width: 450px;
+  padding: 16px 24px;
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  background: rgba(40, 40, 40, 0.5);
+  backdrop-filter: blur(20px);
+  color: white;
+  font-size: 1.1rem;
+  display: block;
+  margin: 0 auto 3rem auto;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+  background: rgba(60, 60, 60, 0.7);
+  outline: none;
+  border-color: var(--text-secondary);
+}
+
+button {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-top: 30px;
+  transition: 0.2s;
+}
+button:hover {
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+
+/* --- Lista Miast (Grid) --- */
+.cities-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.city-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  backdrop-filter: blur(20px);
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 180px;
+}
+
+.city-card:hover {
+  transform: scale(1.02);
+  background: var(--glass-hover);
+}
+
+.city-card h2 { margin: 0; font-size: 1.5rem; }
+.city-card .temp { font-size: 3.5rem; font-weight: 200; margin: 10px 0; }
+.city-card .cond { color: var(--text-secondary); font-size: 1rem; text-transform: capitalize; }
+
+
+/* --- NOWY UKŁAD: Dashboard (Grid 2-kolumnowy) --- */
+/* To jest kluczowa zmiana dla Twojego problemu */
+.weather-dashboard {
+  display: grid;
+  /* Lewa kolumna: 320px (sztywna), Prawa: reszta (1fr) */
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+  margin-top: 2rem;
+  align-items: start; /* Elementy wyrównane do góry */
+}
+
+/* Jeśli ekran jest mały (tablet/telefon), zrób jedną kolumnę */
+@media (max-width: 900px) {
+  .weather-dashboard {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Panel Szczegółów (Prawa strona) --- */
+.details-panel {
+  background: var(--glass-panel);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(40px);
+  padding: 30px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column; 
+  gap: 30px; 
+  height: 100%; /* Żeby dorównał wysokością */
+}
+
+/* Siatka górna (Wiatr, Wilgotność itp.) */
+.details-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+  gap: 15px;
+  width: 100%;
+}
+
+.details-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 90px;
+}
+
+.details-item strong {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.details-item div {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: white;
+}
+
+/* --- Sekcja Prognozy (Lewa strona / Sidebar) --- */
+.details-panel.forecast {
+  /* Resetujemy style panelu głównego dla paska bocznego */
+  width: 100%; /* Wypełnia te 320px z gridu */
+  margin: 0;
+  padding: 24px;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.details-panel.forecast h3 {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  margin-top: 0;
+  padding-left: 5px;
+}
+
+/* Kontener na dni - teraz w PIONIE */
+.forecast-row {
+  display: flex;
+  flex-direction: column; /* Zmiana na kolumnę! */
+  gap: 12px;
+}
+
+/* Pojedynczy dzień prognozy */
+.forecast-day {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px; /* Większy padding po bokach */
+  display: flex;
+  flex-direction: row; /* Elementy w środku dnia obok siebie */
+  align-items: center;
+  justify-content: space-between; /* Rozrzuć elementy (Data - Ikona - Temp) */
+  box-sizing: border-box;
+}
+
+.forecast-day:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.forecast-day span {
+  font-size: 1rem;
+}
